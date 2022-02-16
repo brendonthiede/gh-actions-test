@@ -1,4 +1,4 @@
-name: Release Go app to Docker Hub
+name: Test usage of env vars
 
 on:
   push:
