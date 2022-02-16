@@ -25,8 +25,6 @@ jobs:
         env:
           DOCKER_META_TAGS: ${{ steps.meta.outputs.tags }}
           DOCKER_META_LABELS: ${{ steps.meta.outputs.labels }}
-          DOCKER_META_ALL: ${{ steps.meta.outputs }}
         run: |
           echo "DOCKER_META_TAGS = '${DOCKER_META_TAGS}'"
           echo "DOCKER_META_LABELS = '${DOCKER_META_LABELS}'"
-          echo "DOCKER_META_ALL = '${DOCKER_META_ALL}'"
