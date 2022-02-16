@@ -1,0 +1,30 @@
+name: Release Go app to Docker Hub
+
+on:
+  push:
+    branches: ["*"]
+  release:
+    types:
+      - created
+
+jobs:
+  test-env-vars:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: thiedebr/fake-image
+          tags: |
+            type=sha,format=long
+            type=raw,value=${{ github.event.release.tag_name }}
+            type=raw,value=latest
+
+      - name: Fetch required Go modules
+        env:
+          GH_TAGS: ${{ steps.meta.outputs.tags }}
+          GH_LABELS: ${{ steps.meta.outputs.labels }}
+        run: |
+          echo "GH_TAGS = '${GH_TAGS}'"
+          echo "GH_LABELS = '${GH_LABELS}'"
